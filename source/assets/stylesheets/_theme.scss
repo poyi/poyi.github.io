@@ -1,3 +1,94 @@
 //
 // Foundation-Jekyll - Custom Theme Styles
 //
+
+.main-panel {
+  font-family: 'Noto Sans', sans-serif !important;
+  float: left;
+  background: #242424;
+  background-image: url('/assets/img/about/IMG_0280.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  color: white;
+}
+
+.panel-mask {
+  position: absolute;
+  background: #242424;
+  opacity: 0.14;
+  width: 100%;
+  height: 100%;
+}
+
+.main-panel h1 {
+  font-size: 42px;
+  font-weight: bold;
+  text-shadow: 0.5px 0.5px #242424;
+}
+
+.main-panel p {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 28px;
+  text-shadow: 0.5px 0.5px #242424;
+}
+
+.side-panel {
+  font-family: 'Noto Sans', sans-serif !important;
+  position: fixed;
+  width: 320px;
+  height: 100vh;
+  padding: 40px;
+  background: white;
+  overflow: auto;
+}
+
+.side-panel h1 {
+  margin-bottom: 30px;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.side-panel p {
+  font-size: 16px;
+  line-height: 28px;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+.links a {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.global-nav {
+  margin-top: 30px;
+}
+
+.header {
+  font-family: 'Noto Sans', Arial, sans-serif;
+  position: fixed;
+  background: white;
+  border-bottom: 1px solid #e9e9e9;
+  width: 100%;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.header .home-link {
+  float: left;
+  font-size: 24px;
+  color: #242424;
+}
+
+.header .works-link {
+  float: left;
+  margin-left: 24px;
+  font-size: 14px;
+  color: #242424;
+  padding-top: 10px;
+}

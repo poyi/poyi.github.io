@@ -1,14 +1,14 @@
-title:              Foundation-Jekyll
+title:              Poyi Chen
 
 # Versioning
 current_version: 1.5.0
 foundation_version: 6.0.0
 
 author:
-  name:             username
-  email:            user@domain.com
-  github:           username
-  twitter:          username
+  name:             Poyi
+  email:            poyi.design@gmail.com
+  github:           poyi
+  twitter:          poyichen
 
 # Dependencies
 markdown:           kramdown
@@ -24,7 +24,7 @@ destination:        ./static
 
 port:               9002
 baseurl:            ""
-url:                http://yoururl.com
+url:                http://poyichen.com
 
 # exclude this stuff when building the static site
 exclude:            [
@@ -37,11 +37,11 @@ exclude:            [
 ## CUSTOM VARS
 
 #ga_id:             ##-########-###
-site_name:          Foundation-Jekyll
+site_name:          Poyi chen
 site_description :  The awesomeness of Foundation 6... powered by Jekyll
-site_copyright:     Copyright (c) 2016 @aaronkwhite
-site_url:           http://yoururl.com
-site_email:         site@domain.com
+site_copyright:     Copyright (c) 2016 @poyichen
+site_url:           http://www.poyichen.com
+site_email:         poyi.design@gmail.com
 site_phone:         (555) 555-1234
 
 

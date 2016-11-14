@@ -1,0 +1,64 @@
+//
+// Foundation-Jekyll - Custom Theme Styles
+//
+
+.works {
+  font-family: 'Noto Sans', sans-serif !important;
+  position: absolute;
+  background: #e9e9e9;
+  height: 100vh;
+  left: 320px;
+}
+
+.portfolio {
+  margin-top: 10%;
+}
+
+.portfolio p {
+  margin-top: 24px;
+  margin-bottom: 42px;
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 42px;
+}
+
+.portfolio img {
+  margin-top: 10px;
+}
+
+.portfolio .img-small {
+  width: 240px;
+  margin-top: 5px;
+}
+
+.portfolio .center {
+  text-align: center;
+}
+
+.portfolio .section {
+  margin-bottom: 42px;
+}
+
+.portfolio h1 {
+  font-size: 42px;
+}
+
+.portfolio h2 {
+  font-size: 24px;
+}
+
+.portfolio h3 {
+  color: #777777;
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 42px;
+}
+
+.portfolio .img-double {
+  width: 48%;
+  float: left;
+  margin-right: 2%;
+}
+
+.clear {
+  clear: both;
+}
