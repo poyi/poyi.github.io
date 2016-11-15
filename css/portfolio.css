@@ -1,0 +1,117 @@
+.recent-works {
+  float: left;
+  font-family: 'Noto Sans', sans-serif !important;
+  width: 320px;
+  height: 100%;
+  padding: 40px;
+  background: white;
+  overflow: auto;
+  margin-right: 42px;
+}
+
+.recent-works h1 {
+  margin-bottom: 30px;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.recent-works p {
+  font-size: 16px;
+  line-height: 28px;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+
+.works {
+  font-family: 'Noto Sans', sans-serif !important;
+  position: relative;
+}
+
+.portfolio {
+  margin-top: 10%;
+}
+
+.portfolio p {
+  margin-top: 24px;
+  margin-bottom: 84px;
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 42px;
+}
+
+.portfolio img {
+  margin-top: 10px;
+}
+
+.portfolio .img-small {
+  width: 240px;
+  margin-top: 5px;
+}
+
+.portfolio .center {
+  text-align: center;
+}
+
+.portfolio .section {
+  margin-bottom: 42px;
+}
+
+.portfolio h1 {
+  font-size: 42px;
+}
+
+.portfolio h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.portfolio h3 {
+  color: #777777;
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 42px;
+}
+
+.portfolio .img-double {
+  width: 48%;
+  float: left;
+  margin-right: 2%;
+}
+
+.portfolio .img-medium {
+  max-width: 400px;
+}
+
+.clear {
+  clear: both;
+}
+
+.portfolio-grid {
+  padding: 42px;
+  width: 100%;
+}
+
+.portfolio-item {
+  width: 320px;
+  color: #242424;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 42px;
+}
+
+.portfolio-item img:hover {
+  outline: 1px solid #e9e9e9;
+  outline-offset: -4px;
+}
+
+.portfolio-title {
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.portfolio-desc {
+  margin-top: 10px;
+  font-size: 14px;
+  height: 42px;
+}
