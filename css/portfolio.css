@@ -115,3 +115,17 @@
   font-size: 14px;
   height: 42px;
 }
+
+@media only screen and (max-width: 40em) {
+  .recent-works {
+    font-family: 'Noto Sans', sans-serif !important;
+    width: 100%;
+    padding: 40px;
+    background: white;
+    float: none;
+    height: auto;
+  }
+  .portfolio {
+    margin-top: 100px;
+  }
+}
