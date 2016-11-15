@@ -38,7 +38,7 @@ exclude:            [
 
 #ga_id:             ##-########-###
 site_name:          Poyi chen
-site_description :  The awesomeness of Foundation 6... powered by Jekyll
+site_description :  Portfolio site
 site_copyright:     Copyright (c) 2016 @poyichen
 site_url:           http://www.poyichen.com
 site_email:         poyi.design@gmail.com
