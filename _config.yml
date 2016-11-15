@@ -1,0 +1,13 @@
+name : Poyi Chen
+brand : Poyi Chen
+description : This is the description of my project
+keyword : poyi chen, portfolio, design, product, ux, ui, visual
+url : http://poyi.github.io
+email : poyi.design@gmail.com
+twitter : DaigoFuji
+github : DaigoFuji
+author : Daigo Fujiwara
+year : 2016
+markdown : kramdown
+exclude :
+  - node_modules
