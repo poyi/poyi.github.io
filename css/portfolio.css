@@ -87,7 +87,8 @@
 
 .portfolio-grid {
   padding: 42px;
-  width: 100%;
+  position: absolute;
+  margin-left: 320px;
 }
 
 .portfolio-item {
@@ -126,5 +127,9 @@
   }
   .portfolio {
     margin-top: 100px;
+  }
+  .portfolio-grid {
+    position: relative;
+    margin-left: 0px;
   }
 }
