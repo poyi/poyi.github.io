@@ -1,29 +1,422 @@
----
-layout: default
-title: Poyi Chen
-description: Portfolio
-keywords: poyi chen, design, product, ux, ui, visual
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2W4LS8L3SR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2W4LS8L3SR');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omodo — Your Private AI Assistant for macOS</title>
+  <meta name="description" content="Omodo helps monitor your email, files, notes, and calendar — extracts action items and automates tasks using a local LLM. 100% private. Nothing leaves your Mac.">
+  <link rel="icon" type="image/png" href="images/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<div class="main-panel hide-for-small-only">
-  <div class="panel-mask"></div>
-</div>
-<div class="side-panel">
-  <div class="home-side-panel">
-    <h1>Poyi Chen</h1>
-    <p>
-      I'm a Product Designer with Front-end development experience living in San Francisco Bay Area.
-      I help companies design and build web + mobile applications.
-    </p>
-    <div class="links">
-      <a href="/works.html">Recent projects</a>
-      <a href="https://dribbble.com/PoyiChen">Dribbble</a>
-      <a href="https://www.linkedin.com/in/poyichen">Linkedin</a>
-      <a href="https://medium.com/@poyichen">Medium</a>
-      <a href="https://github.com/poyi">GitHub</a>
-      <a href="https://twitter.com/PoyiChen">Twitter</a>
-      <a href="/img/about/poyichen-resume.pdf">My résumé</a>
-      <a href="mailto:poyi.design@gmail.com" target="_top">Email me</a>
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="images/icon.png" alt="Omodo" width="32" height="32">
+        <span>Omodo</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-sm">Download</a>
+      </div>
     </div>
-  </div>
-</div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Free during Beta</div>
+      <h1>Your Private Assistant That Works for You in the Background</h1>
+      <p class="hero-sub">Omodo helps monitor your email, files, notes, and calendar — extracts action items, creates reminders, and automates tasks in the background. Powered by a local LLM. <strong>Nothing ever leaves your Mac.</strong></p>
+      <div class="hero-cta">
+        <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download for macOS
+        </a>
+        <span class="hero-req">Requires Apple Silicon &middot; macOS 14+</span>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="images/mascot.png" alt="Omodo mascot" class="mascot">
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="problem">
+    <div class="container">
+      <h2>Privacy Focused, Designed to Work<br>with Native macOS Apps</h2>
+      <p>Omodo runs entirely on your Mac using a local LLM — no cloud, no accounts, no data ever leaving your machine. It works seamlessly with Apple Mail, Calendar, Reminders, and Notes, so you stay in the apps you already use while AI handles the busywork behind the scenes.</p>
+    </div>
+  </section>
+
+  <!-- Value Props -->
+  <section class="values">
+    <div class="container">
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+          </div>
+          <h3>100% Private</h3>
+          <p>All processing happens locally via Ollama. No cloud. No accounts. No telemetry. Your data stays on your machine — period.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Automated Intelligence</h3>
+          <p>Extracts action items from emails, files, and notes. Creates reminders and calendar events automatically. Thread-aware and context-rich.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Native macOS</h3>
+          <p>Built in Swift. Works seamlessly with Apple Mail, Calendar, Reminders, and Notes. Lives in your menu bar — no new apps to learn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Pick and Choose<br>What You Want to Automate</h2>
+
+      <div class="feature-row">
+        <div class="feature-text">
+          <div class="feature-label">Email Processing</div>
+          <h3>Your Inbox, Handled</h3>
+          <p>Omodo watches your Apple Mail inbox and turns actionable emails into reminders and calendar events for you. It follows conversation threads — so when a meeting gets rescheduled or a task gets cancelled in a reply, your reminders update automatically.</p>
+        </div>
+        <div class="feature-visual">
+          <!-- macOS Reminders UI -->
+          <div class="macos-card">
+            <div class="macos-card-header">
+              <span class="macos-card-title">Reminders</span>
+              <span class="macos-card-meta">Scanned now &nbsp;1 &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
+            </div>
+            <div class="macos-card-subtitle">From Reminders (name match)</div>
+            <div class="macos-reminder-item">
+              <div class="reminder-checkbox"></div>
+              <div class="reminder-content">
+                <div class="reminder-title">Reply to Jane Doe about request for coffee chat</div>
+                <div class="reminder-meta">
+                  <span class="reminder-date"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff6961" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span class="date-red">Mar 14, 2026 at 9:00 AM</span></span>
+                  <span class="reminder-list"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> OmoDo</span>
+                </div>
+              </div>
+              <div class="reminder-priority">!!</div>
+            </div>
+          </div>
+
+          <!-- macOS Calendar Events UI -->
+          <div class="macos-card" style="margin-top: 16px;">
+            <div class="macos-card-header">
+              <span class="macos-card-title">Calendar Events</span>
+              <span class="macos-card-meta">Scanned now &nbsp;2 &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
+            </div>
+            <div class="macos-event-item">
+              <div class="event-color-bar orange"></div>
+              <div class="event-content">
+                <div class="event-title">Soccer Meetup</div>
+                <div class="event-meta">Mar 15, 2026 at 10:00 AM - 12:00 PM &nbsp;&nbsp;<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> City Park</div>
+              </div>
+              <span class="event-badge upcoming">Upcoming</span>
+            </div>
+            <div class="macos-event-item">
+              <div class="event-color-bar orange"></div>
+              <div class="event-content">
+                <div class="event-title">Interview with Acme Inc</div>
+                <div class="event-meta">Mar 17, 2026 at 2:00 PM - 3:00 PM &nbsp;&nbsp;<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Google Meet</div>
+              </div>
+              <span class="event-badge upcoming">Upcoming</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div class="feature-text">
+          <div class="feature-label">AI Chat</div>
+          <h3>Talk to Your Data</h3>
+          <p>Ask questions in plain English and get things done. Check your schedule, search through emails, analyze documents, or create tasks — all in one conversation. Omodo remembers your context, so you don't have to repeat yourself.</p>
+          <div class="feature-examples">
+            <code>"Check my schedule tomorrow and create reminders for prep"</code>
+            <code>"Search emails from John about the contract"</code>
+            <code>"Analyze all invoices and summarize amounts owed"</code>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-card-demo chat-demo">
+            <div class="demo-header">
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+            </div>
+            <div class="demo-content">
+              <div class="chat-msg user">What meetings do I have tomorrow?</div>
+              <div class="chat-msg assistant">
+                <span class="tool-badge">calendar_search</span>
+                You have 2 meetings tomorrow:<br>
+                <strong>10:00 AM</strong> — Team standup<br>
+                <strong>2:00 PM</strong> — Client review with Sarah<br>
+                Want me to create prep reminders?
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-text">
+          <div class="feature-label">Contact Tracker</div>
+          <h3>Everything About a Contact, in One Place</h3>
+          <p>Omodo aggregates relevant emails, calendar events, reminders, files, links, and notes for your contacts into a unified view — so you always have the full picture without digging through multiple apps.</p>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-card-demo">
+            <div class="demo-header">
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+            </div>
+            <div class="demo-content">
+              <div class="contact-card">
+                <div class="contact-name">Sarah Chen</div>
+                <div class="contact-role">VP of Product, Acme Corp</div>
+                <div class="contact-memory">
+                  <div class="memory-item">Prefers async communication</div>
+                  <div class="memory-item">Working on Q2 roadmap together</div>
+                  <div class="memory-item">Shared NDA signed Dec 2024</div>
+                </div>
+                <div class="contact-stats">
+                  <span>42 emails</span>
+                  <span>3 meetings</span>
+                  <span>7 files shared</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div class="feature-text">
+          <div class="feature-label">File Monitoring</div>
+          <h3>Your Files, Organized Automatically</h3>
+          <p>Omodo watches your files, understands their content, and tags them automatically — so you can find that invoice, contract, or note by simply describing what you're looking for. It can even rename files based on their content to keep things tidy.</p>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-card-demo">
+            <div class="demo-header">
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+            </div>
+            <div class="demo-content">
+              <div class="file-list">
+                <div class="file-item">
+                  <span class="file-icon">PDF</span>
+                  <div class="file-info">
+                    <div class="file-name">2024-Invoice-Acme.pdf</div>
+                    <div class="file-tags">
+                      <span class="tag">invoice</span>
+                      <span class="tag">acme-corp</span>
+                      <span class="tag">due:2024-12-15</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="file-item">
+                  <span class="file-icon">IMG</span>
+                  <div class="file-info">
+                    <div class="file-name">whiteboard-photo.jpg</div>
+                    <div class="file-tags">
+                      <span class="tag">architecture</span>
+                      <span class="tag">diagram</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-text">
+          <div class="feature-label">Meeting Recording</div>
+          <h3>Never Miss What Was Said</h3>
+          <p>Omodo records and transcribes your meetings on-device, then generates a summary with key decisions and action items. Everything is saved to Apple Notes and linked to the right contacts automatically.</p>
+        </div>
+        <div class="feature-visual">
+          <div class="feature-card-demo">
+            <div class="demo-header">
+              <span class="demo-dot red"></span>
+              <span class="demo-dot"></span>
+              <span class="demo-dot"></span>
+              <span class="recording-label">Recording</span>
+            </div>
+            <div class="demo-content">
+              <div class="meeting-summary">
+                <div class="summary-section">
+                  <div class="summary-title">Key Decisions</div>
+                  <div class="summary-item">Launch date moved to March 15</div>
+                  <div class="summary-item">Budget approved for new hire</div>
+                </div>
+                <div class="summary-section">
+                  <div class="summary-title">Action Items</div>
+                  <div class="summary-item action">Update roadmap — assigned to you</div>
+                  <div class="summary-item action">Send revised proposal — assigned to Sarah</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section id="privacy" class="privacy">
+    <div class="container">
+      <div class="privacy-content">
+        <img src="images/mascot-reading.png" alt="Omodo reading" class="privacy-mascot">
+        <h2>Your data never leaves your Mac. Period.</h2>
+        <p>Unlike cloud AI tools, Omodo processes everything locally using Ollama. There are no API keys, no cloud inference, no accounts, no analytics, and no telemetry. Your emails, files, and notes stay exactly where they belong — on your machine.</p>
+        <div class="privacy-diagram">
+          <div class="privacy-node">
+            <img src="images/icon.png" alt="Omodo" width="40" height="40" style="border-radius: 8px;">
+            <span>Omodo</span>
+          </div>
+          <div class="privacy-arrow">
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M5 12h30M30 7l5 5-5 5"/></svg>
+          </div>
+          <div class="privacy-node">
+            <img src="images/ollama.svg" alt="Ollama" width="40" height="40" class="ollama-icon">
+            <span>Ollama (localhost)</span>
+          </div>
+          <div class="privacy-arrow">
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M5 12h30M30 7l5 5-5 5"/></svg>
+          </div>
+          <div class="privacy-node">
+            <div class="apple-apps-icons">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M19 4H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 14H5V8h14v10z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+            </div>
+            <span>Apple Apps</span>
+          </div>
+        </div>
+        <p class="privacy-note">That's it. No cloud icons. No arrows going offscreen. Everything stays local.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What is Ollama and do I need it?</summary>
+          <p><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> is a free, open-source tool that lets you run large language models locally on your Mac. Omodo uses Ollama to process your data — it's what makes the entire experience private. You'll need to install it and pull a model before using Omodo, but the setup takes just a few minutes.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>macOS says the app is damaged or can't be opened?</summary>
+          <p>This is expected during the beta — Omodo is not yet signed or notarized with Apple. When you first open the app, macOS may show a warning or suggest moving it to the trash. To allow it: open <strong>System Settings &rarr; Privacy &amp; Security</strong>, scroll down, and you'll see a message about Omodo being blocked. Click <strong>"Open Anyway"</strong> to allow it. You only need to do this once.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is my data really private?</summary>
+          <p>Yes — 100%. Omodo processes everything on your Mac using Ollama running on localhost. There are no cloud servers, no API calls to external services, no accounts, no analytics, and no telemetry. Your emails, files, and notes never leave your machine.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What Mac do I need?</summary>
+          <p>Omodo requires a Mac with Apple Silicon (M1 or later) running macOS 14 (Sonoma) or newer. Apple Silicon is needed for efficient local LLM inference through Ollama.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which email providers are supported?</summary>
+          <p>Omodo works through Apple Mail, so any email account you've added to Mail — Gmail, Outlook, iCloud, Yahoo, or any IMAP provider — is supported. You choose which mailboxes to monitor.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is Omodo free?</summary>
+          <p>Omodo is completely free during the beta period. We'll share more about pricing as we approach a stable release.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does it work offline?</summary>
+          <p>Yes. Since Omodo and Ollama both run locally, you don't need an internet connection for AI processing. You'll only need internet for receiving new emails or syncing calendar events through Apple's apps.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What LLM models are supported?</summary>
+          <p>Omodo works with any model available through Ollama — including Llama, Mistral, Gemma, Phi, and more. You can choose your preferred model in Settings based on your performance and quality preferences.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I get started?</summary>
+          <p>Download Omodo, install <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, and pull a model (e.g. <code>ollama pull llama3</code>). Launch Omodo and follow the onboarding wizard — it'll guide you through permissions, model selection, and choosing which sources to monitor. You'll be up and running in minutes.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section id="download" class="download">
+    <div class="container">
+      <img src="images/icon.png" alt="Omodo" width="80" height="80" class="download-icon">
+      <h2>Your AI Assistant Is One Click Away</h2>
+      <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary btn-lg">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download for macOS
+      </a>
+      <div class="download-meta">
+        <span>Apple Silicon</span>
+        <span>&middot;</span>
+        <span>macOS 14+</span>
+        <span>&middot;</span>
+        <span>Requires <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="images/icon.png" alt="Omodo" width="24" height="24">
+          <span>Omodo</span>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/poyi/Omodo-releases/releases" target="_blank" rel="noopener">Changelog</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
