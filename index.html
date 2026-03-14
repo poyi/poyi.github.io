@@ -9,6 +9,68 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-2W4LS8L3SR');
+
+    function trackDownload(location, event) {
+      event.preventDefault();
+      var url = event.currentTarget.href;
+      gtag('event', 'download_click', {
+        'location': location,
+        'transport_type': 'beacon'
+      });
+      setTimeout(function() { window.location.href = url; }, 200);
+    }
+
+    // FAQ tracking
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.faq-item').forEach(function(item) {
+        item.addEventListener('toggle', function() {
+          if (item.open) {
+            gtag('event', 'faq_open', {
+              'question': item.querySelector('summary').textContent.trim()
+            });
+          }
+        });
+      });
+
+      // Outbound link tracking (Ollama, GitHub, etc.)
+      document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+        if (link.hostname !== window.location.hostname && !link.hasAttribute('onclick')) {
+          link.addEventListener('click', function() {
+            gtag('event', 'outbound_click', {
+              'url': link.href,
+              'link_text': link.textContent.trim()
+            });
+          });
+        }
+      });
+
+      // Section visibility tracking
+      var sections = document.querySelectorAll('section[id]');
+      var observed = {};
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !observed[entry.target.id]) {
+            observed[entry.target.id] = true;
+            gtag('event', 'section_view', {
+              'section': entry.target.id
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(function(section) { observer.observe(section); });
+
+      // Scroll depth tracking (25%, 50%, 75%, 100%)
+      var scrollMarks = { 25: false, 50: false, 75: false, 100: false };
+      window.addEventListener('scroll', function() {
+        var scrollPct = Math.round(100 * (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight);
+        [25, 50, 75, 100].forEach(function(mark) {
+          if (scrollPct >= mark && !scrollMarks[mark]) {
+            scrollMarks[mark] = true;
+            gtag('event', 'scroll_depth', { 'percent': mark });
+          }
+        });
+      });
+    });
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Omodo — Your Private AI Assistant for macOS</title>
@@ -32,7 +94,7 @@
         <a href="#features">Features</a>
         <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
-        <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-sm" onclick="gtag('event', 'download_click', { 'location': 'nav' })">Download</a>
+        <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-sm" onclick="trackDownload('nav', event)">Download</a>
       </div>
     </div>
   </nav>
@@ -44,7 +106,7 @@
       <h1>Your Private Assistant That Works for You in the Background</h1>
       <p class="hero-sub">Omodo helps monitor your email, files, notes, and calendar — extracts action items, creates reminders, and automates tasks in the background. Powered by a local LLM. <strong>Nothing ever leaves your Mac.</strong></p>
       <div class="hero-cta">
-        <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary" onclick="gtag('event', 'download_click', { 'location': 'hero' })">
+        <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary" onclick="trackDownload('hero', event)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download for macOS
         </a>
@@ -387,19 +449,12 @@
   <!-- Download -->
   <section id="download" class="download">
     <div class="container">
-      <img src="images/icon.png" alt="Omodo" width="80" height="80" class="download-icon">
       <h2>Your AI Assistant Is One Click Away</h2>
-      <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary btn-lg" onclick="gtag('event', 'download_click', { 'location': 'bottom_cta' })">
+      <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary btn-lg" onclick="trackDownload('bottom_cta', event)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download for macOS
       </a>
-      <div class="download-meta">
-        <span>Apple Silicon</span>
-        <span>&middot;</span>
-        <span>macOS 14+</span>
-        <span>&middot;</span>
-        <span>Requires <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a></span>
-      </div>
+      <img src="images/mascot-reaching.png" alt="Omodo mascot" class="download-mascot">
     </div>
   </section>
 

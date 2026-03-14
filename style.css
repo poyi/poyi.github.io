@@ -932,9 +932,11 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--border);
 }
 
-.download-icon {
-  margin: 0 auto 24px;
-  border-radius: var(--radius);
+.download-mascot {
+  width: 200px;
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 40px rgba(50, 214, 255, 0.2));
 }
 
 .download h2 {
@@ -951,7 +953,7 @@ img { display: block; max-width: 100%; }
 }
 
 .download .btn {
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .download-meta {
