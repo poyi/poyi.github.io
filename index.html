@@ -70,12 +70,114 @@
           }
         });
       });
+
+      // Nav link tracking
+      document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          gtag('event', 'nav_click', {
+            'link_text': link.textContent.trim(),
+            'target': link.getAttribute('href')
+          });
+        });
+      });
+
+      // Footer link tracking
+      document.querySelectorAll('.footer-links a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          gtag('event', 'footer_click', {
+            'link_text': link.textContent.trim(),
+            'url': link.href
+          });
+        });
+      });
+
+      // Carousel demo interaction tracking (contact/file clicks)
+      document.addEventListener('click', function(e) {
+        var contactItem = e.target.closest('.contact-list-item');
+        if (contactItem) {
+          var name = contactItem.querySelector('.contact-list-name');
+          gtag('event', 'demo_contact_click', {
+            'contact_name': name ? name.textContent.trim() : ''
+          });
+        }
+        var fileItem = e.target.closest('.file-list-item');
+        if (fileItem) {
+          var fname = fileItem.querySelector('.file-list-name');
+          gtag('event', 'demo_file_click', {
+            'file_name': fname ? fname.textContent.trim() : ''
+          });
+        }
+        var chatItem = e.target.closest('.chat-list-item');
+        if (chatItem) {
+          var title = chatItem.querySelector('.chat-list-title');
+          gtag('event', 'demo_chat_click', {
+            'chat_title': title ? title.textContent.trim() : ''
+          });
+        }
+      });
+
+      // Skills marquee hover tracking
+      var skillHoverTracked = {};
+      document.querySelectorAll('.skill-card').forEach(function(card) {
+        card.addEventListener('mouseenter', function() {
+          var title = card.querySelector('.skill-title');
+          var name = title ? title.textContent.trim() : '';
+          if (name && !skillHoverTracked[name]) {
+            skillHoverTracked[name] = true;
+            gtag('event', 'skill_card_hover', { 'skill_name': name });
+          }
+        });
+      });
     });
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Omodo — Your Private AI Assistant for macOS</title>
   <meta name="description" content="Omodo helps monitor your email, files, notes, and calendar — extracts action items and automates tasks using a local LLM. 100% private. Nothing leaves your Mac.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://omodo.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Omodo — Your Private AI Assistant for macOS">
+  <meta property="og:description" content="Supercharge your Mac workflow with 100% local AI. Monitor email, files, notes, and calendar — automate tasks privately without anything leaving your Mac.">
+  <meta property="og:image" content="https://omodo.app/images/mascot.png">
+  <meta property="og:url" content="https://omodo.app/">
+  <meta property="og:site_name" content="Omodo">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Omodo — Your Private AI Assistant for macOS">
+  <meta name="twitter:description" content="Supercharge your Mac workflow with 100% local AI. Monitor email, files, notes, and calendar — automate tasks privately without anything leaving your Mac.">
+  <meta name="twitter:image" content="https://omodo.app/images/mascot.png">
+
+  <!-- Theme & Icons -->
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="apple-touch-icon" href="images/icon.png">
   <link rel="icon" type="image/png" href="images/icon.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Omodo",
+    "operatingSystem": "macOS",
+    "applicationCategory": "ProductivityApplication",
+    "description": "A private AI assistant for macOS that monitors your email, files, notes, and calendar — extracts action items and automates tasks using a local LLM. Nothing leaves your Mac.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "downloadUrl": "https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg",
+    "screenshot": "https://omodo.app/images/mascot.png",
+    "softwareRequirements": "macOS 14 (Sonoma) or newer, Apple Silicon (M1 or later)"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -91,7 +193,7 @@
         <span>Omodo</span>
       </a>
       <div class="nav-links">
-        <a href="#features">Features</a>
+        <a href="#showcase">Features</a>
         <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
         <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-sm" onclick="trackDownload('nav', event)">Download</a>
@@ -99,11 +201,12 @@
     </div>
   </nav>
 
+  <main>
+
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge">BETA</div>
-      <h1>Your Private Assistant That Works for You in the Background</h1>
+      <h1>Supercharge Your Mac Workflow with 100% Local AI</h1>
       <p class="hero-sub">Omodo helps monitor your email, files, notes, and calendar — extracts action items, creates reminders, and automates tasks in the background. Powered by a local LLM. <strong>Nothing ever leaves your Mac.</strong></p>
       <div class="hero-cta">
         <a href="https://github.com/poyi/Omodo-releases/releases/latest/download/Omodo.dmg" class="btn btn-primary" onclick="trackDownload('hero', event)">
@@ -118,270 +221,371 @@
     </div>
   </section>
 
-  <!-- Problem -->
-  <section class="problem">
+  <!-- Native Apps Integration -->
+  <section class="native-apps">
     <div class="container">
-      <h2>Privacy Focused, Designed to Work<br>with Native macOS Apps</h2>
-      <p>Omodo runs entirely on your Mac using a local LLM — no cloud, no accounts, no data ever leaving your machine. It works seamlessly with Apple Mail, Calendar, Reminders, and Notes, so you stay in the apps you already use while AI handles the busywork behind the scenes.</p>
+      <h2>Designed to Work with Native macOS Apps</h2>
+      <p class="native-apps-desc">Omodo integrates directly with the apps you already use every day — no third-party accounts, no additional setup. With your permission, it quietly monitors your data sources in the background and surfaces what matters.</p>
+      <div class="native-apps-row">
+        <div class="native-app-item">
+          <img src="images/app-icons/mail.png" alt="Apple Mail" width="72" height="72" loading="lazy">
+          <span>Mail</span>
+        </div>
+        <div class="native-app-item">
+          <img src="images/app-icons/calendar.png" alt="Apple Calendar" width="72" height="72" loading="lazy">
+          <span>Calendar</span>
+        </div>
+        <div class="native-app-item">
+          <img src="images/app-icons/reminders.png" alt="Apple Reminders" width="72" height="72" loading="lazy">
+          <span>Reminders</span>
+        </div>
+        <div class="native-app-item">
+          <img src="images/app-icons/notes.png" alt="Apple Notes" width="72" height="72" loading="lazy">
+          <span>Notes</span>
+        </div>
+        <div class="native-app-item">
+          <img src="images/app-icons/finder.png" alt="Finder" width="72" height="72" loading="lazy">
+          <span>Files</span>
+        </div>
+      </div>
+
+      <div class="skills-marquee">
+        <div class="skills-track">
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/><line x1="16" y1="17" x2="19" y2="14"/><circle cx="19" cy="14" r="0.5" fill="#0a84ff"/></svg></div>
+            <div class="skill-title">Action Extraction</div>
+            <div class="skill-desc">Extracts reminders and events from emails automatically.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></div>
+            <div class="skill-title">Email Prompt</div>
+            <div class="skill-desc">Send yourself an email to prompt AI for responses or perform actions remotely from any device.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 3.1-6 7-6 1.2 0 2.3.2 3.3.6"/><path d="M14 20c0-2.5 1.8-4 3.5-4s3.5 1.5 3.5 4"/><circle cx="18" cy="5" r="1" fill="#0a84ff" stroke="none"/></svg></div>
+            <div class="skill-title">Contact Intelligence</div>
+            <div class="skill-desc">Build profiles with email summaries, notes, and files.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="#0a84ff"/></svg></div>
+            <div class="skill-title">Image Analysis</div>
+            <div class="skill-desc">Analyze images in email attachments for richer context.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M16 3l2 2-2 2"/><path d="M12 8v4l3 3"/></svg></div>
+            <div class="skill-title">Smart Complete</div>
+            <div class="skill-desc">Automatically completes reminders and events when follow-up emails or activity confirm they're done.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><path d="M7 12h2v2H7z" fill="#0a84ff"/><path d="M11 12h2v2h-2z" fill="#0a84ff"/><path d="M15 12h2v2h-2z" fill="#0a84ff"/></svg></div>
+            <div class="skill-title">Meeting Summaries</div>
+            <div class="skill-desc">Record meetings and generate AI transcripts and summaries.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/><circle cx="17" cy="17" r="3" fill="none"/><line x1="19" y1="15" x2="15" y2="19"/></svg></div>
+            <div class="skill-title">User Memory</div>
+            <div class="skill-desc">Learns your context so responses are relevant without repeating yourself.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+            <div class="skill-title">File Summaries</div>
+            <div class="skill-desc">Monitor local folders and summarize file contents via your local LLM.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M8 15l2 2 4-4"/></svg></div>
+            <div class="skill-title">Rename File</div>
+            <div class="skill-desc">Automatically rename files based on their content using your naming convention.</div>
+          </div>
+          <!-- Duplicate set for seamless loop -->
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/><line x1="16" y1="17" x2="19" y2="14"/><circle cx="19" cy="14" r="0.5" fill="#0a84ff"/></svg></div>
+            <div class="skill-title">Action Extraction</div>
+            <div class="skill-desc">Extracts reminders and events from emails automatically.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></div>
+            <div class="skill-title">Email Prompt</div>
+            <div class="skill-desc">Send yourself an email to prompt AI for responses or perform actions remotely from any device.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 3.1-6 7-6 1.2 0 2.3.2 3.3.6"/><path d="M14 20c0-2.5 1.8-4 3.5-4s3.5 1.5 3.5 4"/><circle cx="18" cy="5" r="1" fill="#0a84ff" stroke="none"/></svg></div>
+            <div class="skill-title">Contact Intelligence</div>
+            <div class="skill-desc">Build profiles with email summaries, notes, and files.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="#0a84ff"/></svg></div>
+            <div class="skill-title">Image Analysis</div>
+            <div class="skill-desc">Analyze images in email attachments for richer context.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M16 3l2 2-2 2"/><path d="M12 8v4l3 3"/></svg></div>
+            <div class="skill-title">Smart Complete</div>
+            <div class="skill-desc">Automatically completes reminders and events when follow-up emails or activity confirm they're done.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><path d="M7 12h2v2H7z" fill="#0a84ff"/><path d="M11 12h2v2h-2z" fill="#0a84ff"/><path d="M15 12h2v2h-2z" fill="#0a84ff"/></svg></div>
+            <div class="skill-title">Meeting Summaries</div>
+            <div class="skill-desc">Record meetings and generate AI transcripts and summaries.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/><circle cx="17" cy="17" r="3" fill="none"/><line x1="19" y1="15" x2="15" y2="19"/></svg></div>
+            <div class="skill-title">User Memory</div>
+            <div class="skill-desc">Learns your context so responses are relevant without repeating yourself.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+            <div class="skill-title">File Summaries</div>
+            <div class="skill-desc">Monitor local folders and summarize file contents via your local LLM.</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M8 15l2 2 4-4"/></svg></div>
+            <div class="skill-title">Rename File</div>
+            <div class="skill-desc">Automatically rename files based on their content using your naming convention.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Value Props -->
-  <section class="values">
+  <!-- App Showcase Carousel -->
+  <section id="showcase" class="showcase">
     <div class="container">
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="value-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+      <h2>Enhanced Views to Manage and Interact with Your Data</h2>
+      <div class="carousel">
+        <div class="carousel-layout">
+        <div class="macos-desktop">
+          <div class="macos-menubar">
+            <div class="menubar-left">
+              <svg class="menubar-apple" width="12" height="15" viewBox="0 0 814 1000" fill="rgba(255,255,255,0.9)"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-0.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.4-155.5-127.4c-58.8-82.8-106.1-211.3-106.1-333.6 0-196 127.5-300 252.9-300 66.6 0 122.2 43.8 163.9 43.8 39.7 0 101.6-46.4 177.2-46.4 28.6 0 131.4 2.6 199.7 99.6zm-174.1-145.6c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-0.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2 0.6 8.4 1.3 13.6 1.3 45.4 0 103.3-30.4 135.5-71.3z"/></svg>
+              <span class="menubar-item active">OmoDo</span>
+              <span class="menubar-item">File</span>
+              <span class="menubar-item">Edit</span>
+              <span class="menubar-item">View</span>
+              <span class="menubar-item">Window</span>
+              <span class="menubar-item">Help</span>
+            </div>
+            <div class="menubar-right">
+              <!-- Omodo status bar icon -->
+              <img src="images/omodo-menubar-icon.png" alt="Omodo" class="menubar-icon menubar-icon-omodo" width="18" height="18">
+              <!-- Wi-Fi -->
+              <svg class="menubar-icon" width="16" height="13" viewBox="0 0 26 20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.2" stroke-linecap="round">
+                <path d="M1 7.5A16.5 16.5 0 0 1 25 7.5" fill="none"/>
+                <path d="M5 11.5A11 11 0 0 1 21 11.5" fill="none"/>
+                <path d="M9 15.5A5.5 5.5 0 0 1 17 15.5" fill="none"/>
+                <circle cx="13" cy="19" r="1.5" fill="rgba(255,255,255,0.85)" stroke="none"/>
+              </svg>
+              <!-- Control Center -->
+              <svg class="menubar-icon" width="15" height="11" viewBox="0 0 22 16" fill="none">
+                <rect x="0.5" y="0.5" width="21" height="6" rx="3" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                <circle cx="16" cy="3.5" r="2.5" fill="rgba(255,255,255,0.85)"/>
+                <rect x="0.5" y="9.5" width="21" height="6" rx="3" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                <circle cx="6" cy="12.5" r="2.5" fill="rgba(255,255,255,0.85)"/>
+              </svg>
+              <!-- Spotlight -->
+              <svg class="menubar-icon" width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.8" stroke-linecap="round">
+                <circle cx="8.5" cy="8.5" r="6"/>
+                <line x1="13" y1="13" x2="18" y2="18"/>
+              </svg>
+              <!-- Date/time -->
+              <span class="menubar-item menubar-datetime">Sat Mar 14  5:30 PM</span>
+            </div>
           </div>
-          <h3>100% Private</h3>
-          <p>All processing happens locally via Ollama. No cloud. No accounts. No telemetry. Your data stays on your machine — period.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3>Automated Intelligence</h3>
-          <p>Extracts action items from emails, files, and notes. Creates reminders and calendar events automatically. Thread-aware and context-rich.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h3>Native macOS</h3>
-          <p>Built in Swift. Works seamlessly with Apple Mail, Calendar, Reminders, and Notes. Lives in your menu bar — no new apps to learn.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+          <div class="macos-desktop-area">
+        <div class="carousel-track-wrapper">
+          <div class="carousel-track">
 
-  <!-- Features -->
-  <section id="features" class="features">
-    <div class="container">
-      <h2>Pick and Choose<br>What You Want to Automate</h2>
-
-      <div class="feature-row">
-        <div class="feature-text">
-          <div class="feature-label">Email Processing</div>
-          <h3>Inbox to Reminders, Automatically</h3>
-          <p>Omodo watches your Apple Mail inbox and turns actionable emails into reminders and calendar events for you. It follows conversation threads — so when a meeting gets rescheduled or a task gets cancelled in a reply, your reminders update automatically.</p>
-        </div>
-        <div class="feature-visual">
-          <!-- macOS Reminders UI -->
-          <div class="macos-card">
-            <div class="macos-card-header">
-              <span class="macos-card-title">Reminders</span>
-              <span class="macos-card-meta">Scanned now &nbsp;1 &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
-            </div>
-            <div class="macos-card-subtitle">From Reminders (name match)</div>
-            <div class="macos-reminder-item">
-              <div class="reminder-checkbox"></div>
-              <div class="reminder-content">
-                <div class="reminder-title">Reply to Jane Doe about request for coffee chat</div>
-                <div class="reminder-meta">
-                  <span class="reminder-date"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff6961" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span class="date-red">Mar 14, 2026 at 9:00 AM</span></span>
-                  <span class="reminder-list"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> OmoDo</span>
-                </div>
-              </div>
-              <div class="reminder-priority">!!</div>
-            </div>
-          </div>
-
-          <!-- macOS Calendar Events UI -->
-          <div class="macos-card" style="margin-top: 16px;">
-            <div class="macos-card-header">
-              <span class="macos-card-title">Calendar Events</span>
-              <span class="macos-card-meta">Scanned now &nbsp;2 &nbsp;<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
-            </div>
-            <div class="macos-event-item">
-              <div class="event-color-bar orange"></div>
-              <div class="event-content">
-                <div class="event-title">Soccer Meetup</div>
-                <div class="event-meta">Mar 15, 2026 at 10:00 AM - 12:00 PM &nbsp;&nbsp;<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> City Park</div>
-              </div>
-              <span class="event-badge upcoming">Upcoming</span>
-            </div>
-            <div class="macos-event-item">
-              <div class="event-color-bar orange"></div>
-              <div class="event-content">
-                <div class="event-title">Interview with Acme Inc</div>
-                <div class="event-meta">Mar 17, 2026 at 2:00 PM - 3:00 PM &nbsp;&nbsp;<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Google Meet</div>
-              </div>
-              <span class="event-badge upcoming">Upcoming</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feature-row reverse">
-        <div class="feature-text">
-          <div class="feature-label">AI Chat</div>
-          <h3>Talk to Your Data</h3>
-          <p>Ask questions in plain English and get things done. Check your schedule, search through emails, analyze documents, or create tasks — all in one conversation. Omodo remembers your context, so you don't have to repeat yourself.</p>
-          <div class="feature-examples">
-            <code>"Check my schedule tomorrow and create reminders for prep"</code>
-            <code>"Search emails from John about the contract"</code>
-            <code>"Analyze all invoices and summarize amounts owed"</code>
-          </div>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-card-demo chat-demo">
-            <div class="demo-header">
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-            </div>
-            <div class="demo-content">
-              <div class="chat-msg user">What meetings do I have tomorrow?</div>
-              <div class="chat-msg assistant">
-                <span class="tool-badge">calendar_search</span>
-                You have 2 meetings tomorrow:<br>
-                <strong>10:00 AM</strong> — Team standup<br>
-                <strong>2:00 PM</strong> — Client review with Sarah<br>
-                Want me to create prep reminders?
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feature-row">
-        <div class="feature-text">
-          <div class="feature-label">Contact Tracker</div>
-          <h3>Everything About a Contact, in One Place</h3>
-          <p>Omodo aggregates relevant emails, calendar events, reminders, files, links, and notes for your contacts into a unified view — so you always have the full picture without digging through multiple apps.</p>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-card-demo">
-            <div class="demo-header">
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-            </div>
-            <div class="demo-content">
-              <div class="contact-card">
-                <div class="contact-name">Sarah Chen</div>
-                <div class="contact-role">VP of Product, Acme Corp</div>
-                <div class="contact-memory">
-                  <div class="memory-item">Prefers async communication</div>
-                  <div class="memory-item">Working on Q2 roadmap together</div>
-                  <div class="memory-item">Shared NDA signed Dec 2024</div>
-                </div>
-                <div class="contact-stats">
-                  <span>42 emails</span>
-                  <span>3 meetings</span>
-                  <span>7 files shared</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feature-row reverse">
-        <div class="feature-text">
-          <div class="feature-label">File Monitoring</div>
-          <h3>Your Files, Organized Automatically</h3>
-          <p>Omodo watches your files, understands their content, and tags them automatically — so you can find that invoice, contract, or note by simply describing what you're looking for. It can even rename files based on their content to keep things tidy.</p>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-card-demo">
-            <div class="demo-header">
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-            </div>
-            <div class="demo-content">
-              <div class="file-list">
-                <div class="file-item">
-                  <span class="file-icon">PDF</span>
-                  <div class="file-info">
-                    <div class="file-name">2024-Invoice-Acme.pdf</div>
-                    <div class="file-tags">
-                      <span class="tag">invoice</span>
-                      <span class="tag">acme-corp</span>
-                      <span class="tag">due:2024-12-15</span>
+            <!-- Slide 1: Contacts -->
+            <div class="carousel-slide" id="contacts-slide">
+              <div class="app-window">
+                <div class="app-titlebar">
+                  <div class="titlebar-sidebar">
+                    <div class="traffic-lights">
+                      <span class="tl-close"></span>
+                      <span class="tl-minimize"></span>
+                      <span class="tl-maximize"></span>
+                    </div>
+                  </div>
+                  <div class="titlebar-main">
+                    <span class="app-titlebar-text">Contacts</span>
+                    <div class="app-titlebar-spacer"></div>
+                    <div class="titlebar-actions">
+                      <button class="titlebar-action-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                      </button>
+                      <button class="titlebar-action-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.7)"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div class="file-item">
-                  <span class="file-icon">IMG</span>
-                  <div class="file-info">
-                    <div class="file-name">whiteboard-photo.jpg</div>
-                    <div class="file-tags">
-                      <span class="tag">architecture</span>
-                      <span class="tag">diagram</span>
+                <div class="app-body">
+                  <!-- Sidebar -->
+                  <div class="app-sidebar">
+                    <div class="app-search">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      <span>Search contacts</span>
+                    </div>
+                    <div class="contact-list" id="contact-list"></div>
+                    <div class="sidebar-bottom">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                      <span>Add Contact</span>
+                    </div>
+                  </div>
+
+                  <!-- Contact panels rendered from data/contacts.json -->
+                  <div class="contact-panels-wrapper" id="contact-panels"></div>
+                </div>
+              </div>
+              <div class="slide-label">Contact Tracker</div>
+            </div>
+
+            <!-- Slide 2: Files -->
+            <div class="carousel-slide">
+              <div class="app-window">
+                <div class="app-titlebar">
+                  <div class="titlebar-sidebar" style="width:260px;">
+                    <div class="traffic-lights">
+                      <span class="tl-close"></span>
+                      <span class="tl-minimize"></span>
+                      <span class="tl-maximize"></span>
+                    </div>
+                  </div>
+                  <div class="titlebar-main">
+                    <span class="app-titlebar-text">Files</span>
+                    <div class="app-titlebar-spacer"></div>
+                    <div class="app-search" style="margin:0; width:180px;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      <span>Search files...</span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feature-row">
-        <div class="feature-text">
-          <div class="feature-label">Meeting Recording</div>
-          <h3>Never Miss What Was Said</h3>
-          <p>Omodo records and transcribes your meetings on-device, then generates a summary with key decisions and action items. Everything is saved to Apple Notes and linked to the right contacts automatically.</p>
-        </div>
-        <div class="feature-visual">
-          <div class="feature-card-demo">
-            <div class="demo-header">
-              <span class="demo-dot red"></span>
-              <span class="demo-dot"></span>
-              <span class="demo-dot"></span>
-              <span class="recording-label">Recording</span>
-            </div>
-            <div class="demo-content">
-              <div class="meeting-summary">
-                <div class="summary-section">
-                  <div class="summary-title">Key Decisions</div>
-                  <div class="summary-item">Launch date moved to March 15</div>
-                  <div class="summary-item">Budget approved for new hire</div>
-                </div>
-                <div class="summary-section">
-                  <div class="summary-title">Action Items</div>
-                  <div class="summary-item action">Update roadmap — assigned to you</div>
-                  <div class="summary-item action">Send revised proposal — assigned to Sarah</div>
+                <div class="app-body">
+                  <!-- File sidebar -->
+                  <div class="app-sidebar" style="width:260px;">
+                    <div class="folder-dropdown">
+                      <span>All Folders</span>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="contact-list" id="file-list"></div>
+                  </div>
+                  <!-- File detail panels -->
+                  <div class="file-panels-wrapper" id="file-panels"></div>
                 </div>
               </div>
+              <div class="slide-label">File Manager</div>
             </div>
+
+            <!-- Slide 3: Chat -->
+            <div class="carousel-slide">
+              <div class="app-window">
+                <div class="app-titlebar">
+                  <div class="titlebar-sidebar" style="width:260px;">
+                    <div class="traffic-lights">
+                      <span class="tl-close"></span>
+                      <span class="tl-minimize"></span>
+                      <span class="tl-maximize"></span>
+                    </div>
+                  </div>
+                  <div class="titlebar-main">
+                    <span class="app-titlebar-text">Chat</span>
+                    <div class="app-titlebar-spacer"></div>
+                    <div class="chat-status-badge">
+                      <span class="chat-status-dot"></span> Connected
+                    </div>
+                  </div>
+                </div>
+                <div class="app-body">
+                  <div class="app-sidebar" style="width:260px;">
+                    <div class="contact-list" id="chat-list"></div>
+                    <div class="sidebar-bottom">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                      <span>Delete All</span>
+                      <span style="margin-left:auto; display:flex; align-items:center; gap:6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        New Chat
+                      </span>
+                    </div>
+                  </div>
+                  <div class="chat-panels-wrapper" id="chat-panels"></div>
+                </div>
+              </div>
+              <div class="slide-label">AI Chat</div>
+            </div>
+
           </div>
         </div>
+        </div><!-- /macos-desktop-area -->
+        </div><!-- /macos-desktop -->
+        <div class="carousel-desc">
+          <div class="carousel-desc-panel active" data-desc="0">
+            <div class="carousel-desc-label">Contact Tracker</div>
+            <h3 class="carousel-desc-title">Remembers Every Relationship</h3>
+            <p class="carousel-desc-text">Omodo automatically builds a memory profile for each contact by scanning your emails, notes, and calendar. See conversation history, upcoming meetings, and action items — all in one place. Never forget a follow-up again.</p>
+          </div>
+          <div class="carousel-desc-panel" data-desc="1">
+            <div class="carousel-desc-label">File Manager</div>
+            <h3 class="carousel-desc-title">Your Files, Understood</h3>
+            <p class="carousel-desc-text">Drop receipts, invoices, warranties, or screenshots into a monitored folder and Omodo does the rest. It extracts key details, auto-tags documents, identifies entities, and generates summaries — making every file instantly searchable.</p>
+          </div>
+          <div class="carousel-desc-panel" data-desc="2">
+            <div class="carousel-desc-label">AI Chat</div>
+            <h3 class="carousel-desc-title">Talk to Your Data</h3>
+            <p class="carousel-desc-text">Ask questions in plain English and get things done. Check your schedule, search through emails, analyze receipts, or create reminders — all in one conversation. Omodo remembers your context, so you never have to repeat yourself.</p>
+          </div>
+        </div>
+        </div><!-- /carousel-layout -->
+      <div class="carousel-controls">
+        <button class="carousel-btn carousel-prev" aria-label="Previous">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-slide="0"></button>
+          <button class="carousel-dot" data-slide="1"></button>
+          <button class="carousel-dot" data-slide="2"></button>
+        </div>
+        <button class="carousel-btn carousel-next" aria-label="Next">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
-
     </div>
   </section>
+
+
 
   <!-- Privacy -->
   <section id="privacy" class="privacy">
     <div class="container">
       <div class="privacy-content">
-        <img src="images/mascot-reading.png" alt="Omodo reading" class="privacy-mascot">
+        <img src="images/mascot-reading.png" alt="Omodo reading" class="privacy-mascot" loading="lazy">
         <h2>Your data never leaves your Mac. Period.</h2>
-        <p>Unlike cloud AI tools, Omodo processes everything locally using Ollama. There are no API keys, no cloud inference, no accounts, no analytics, and no telemetry. Your emails, files, and notes stay exactly where they belong — on your machine.</p>
+        <p>Unlike cloud AI tools, Omodo processes everything locally using AI models you can download and manage directly within the app or via Ollama. There are no API keys, no cloud inference, no accounts, no analytics, and no telemetry. Your emails, files, and notes stay exactly where they belong — on your machine.</p>
         <div class="privacy-diagram">
           <div class="privacy-node">
-            <img src="images/icon.png" alt="Omodo" width="40" height="40" style="border-radius: 8px;">
+            <div class="privacy-node-icon">
+              <img src="images/icon.png" alt="Omodo" width="36" height="36" style="border-radius: 8px;">
+            </div>
             <span>Omodo</span>
           </div>
           <div class="privacy-arrow">
-            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M5 12h30M30 7l5 5-5 5"/></svg>
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h30M30 7l5 5-5 5"/></svg>
           </div>
           <div class="privacy-node">
-            <img src="images/ollama.svg" alt="Ollama" width="40" height="40" class="ollama-icon">
-            <span>Ollama (localhost)</span>
+            <div class="privacy-node-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.7-3.2 6H8.2C6.3 13.7 5 11.5 5 9a7 7 0 0 1 7-7z"/><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="21" x2="14" y2="21"/><path d="M9 15h6"/></svg>
+            </div>
+            <span>Local AI Model</span>
           </div>
           <div class="privacy-arrow">
-            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M5 12h30M30 7l5 5-5 5"/></svg>
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h30M30 7l5 5-5 5"/></svg>
           </div>
           <div class="privacy-node">
-            <div class="apple-apps-icons">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M19 4H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 14H5V8h14v10z"/></svg>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+            <div class="privacy-node-icon apple-apps-grid">
+              <img src="images/app-icons/mail.png" alt="Mail" width="20" height="20">
+              <img src="images/app-icons/calendar.png" alt="Calendar" width="20" height="20">
+              <img src="images/app-icons/reminders.png" alt="Reminders" width="20" height="20">
+              <img src="images/app-icons/notes.png" alt="Notes" width="20" height="20">
             </div>
             <span>Apple Apps</span>
           </div>
@@ -398,8 +602,8 @@
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>What is Ollama and do I need it?</summary>
-          <p><a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> is a free, open-source tool that lets you run large language models locally on your Mac. Omodo uses Ollama to process your data — it's what makes the entire experience private. You'll need to install it and pull a model before using Omodo, but the setup takes just a few minutes.</p>
+          <summary>How does the local AI model work?</summary>
+          <p>Omodo includes a built-in LLM manager that lets you download and manage AI models directly within the app — no extra tools required. You can also use <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, a free open-source tool for running local models, if you prefer. Either way, all AI processing happens entirely on your Mac.</p>
         </details>
 
         <details class="faq-item">
@@ -409,12 +613,12 @@
 
         <details class="faq-item">
           <summary>Is my data really private?</summary>
-          <p>Yes — 100%. Omodo processes everything on your Mac using Ollama running on localhost. There are no cloud servers, no API calls to external services, no accounts, no analytics, and no telemetry. Your emails, files, and notes never leave your machine.</p>
+          <p>Yes — 100%. Omodo processes everything on your Mac using a local AI model (managed through the built-in LLM manager or Ollama). There are no cloud servers, no API calls to external services, no accounts, no analytics, and no telemetry. Your emails, files, and notes never leave your machine.</p>
         </details>
 
         <details class="faq-item">
           <summary>What Mac do I need?</summary>
-          <p>Omodo requires a Mac with Apple Silicon (M1 or later) running macOS 14 (Sonoma) or newer. Apple Silicon is needed for efficient local LLM inference through Ollama.</p>
+          <p>Omodo requires a Mac with Apple Silicon (M1 or later) running macOS 14 (Sonoma) or newer. Apple Silicon is needed for efficient local LLM inference.</p>
         </details>
 
         <details class="faq-item">
@@ -429,17 +633,17 @@
 
         <details class="faq-item">
           <summary>Does it work offline?</summary>
-          <p>Yes. Since Omodo and Ollama both run locally, you don't need an internet connection for AI processing. You'll only need internet for receiving new emails or syncing calendar events through Apple's apps.</p>
+          <p>Yes. Since Omodo runs AI models locally on your Mac, you don't need an internet connection for AI processing. You'll only need internet for receiving new emails or syncing calendar events through Apple's apps.</p>
         </details>
 
         <details class="faq-item">
           <summary>What LLM models are supported?</summary>
-          <p>Omodo works with any model available through Ollama — including Llama, Mistral, Gemma, Phi, and more. You can choose your preferred model in Settings based on your performance and quality preferences.</p>
+          <p>Omodo works with popular models including Llama, Mistral, Gemma, Phi, and more. You can download models directly through Omodo's built-in LLM manager or use Ollama. Choose your preferred model in Settings based on your performance and quality preferences.</p>
         </details>
 
         <details class="faq-item">
           <summary>How do I get started?</summary>
-          <p>Download Omodo, install <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>, and pull a model (e.g. <code>ollama pull llama3</code>). Launch Omodo and follow the onboarding wizard — it'll guide you through permissions, model selection, and choosing which sources to monitor. You'll be up and running in minutes.</p>
+          <p>Download Omodo and launch the app — the onboarding wizard will guide you through permissions, downloading a local AI model (built-in or via <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a>), and choosing which sources to monitor. You'll be up and running in minutes.</p>
         </details>
 
       </div>
@@ -454,9 +658,11 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download for macOS
       </a>
-      <img src="images/mascot-reaching.png" alt="Omodo mascot" class="download-mascot">
+      <img src="images/mascot-reaching.png" alt="Omodo mascot" class="download-mascot" loading="lazy">
     </div>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -468,10 +674,389 @@
         </div>
         <div class="footer-links">
           <a href="https://github.com/poyi/Omodo-releases/releases" target="_blank" rel="noopener">Changelog</a>
+          <a href="mailto:hello@omodo.app">Support</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <script src="data/contacts.js"></script>
+  <script src="data/files.js"></script>
+  <script src="data/chats.js"></script>
+  <script>
+    // Carousel
+    (function() {
+      var slides = document.querySelectorAll('.carousel-slide');
+      var dots = document.querySelectorAll('.carousel-dot');
+      var descPanels = document.querySelectorAll('.carousel-desc-panel');
+      var prevBtn = document.querySelector('.carousel-prev');
+      var nextBtn = document.querySelector('.carousel-next');
+      var current = 0;
+      var total = slides.length;
+
+      slides[0].classList.add('active');
+
+      var slideNames = ['Contacts', 'File Manager', 'AI Chat'];
+      function goTo(index) {
+        slides[current].classList.remove('active');
+        if (descPanels[current]) descPanels[current].classList.remove('active');
+        current = (index + total) % total;
+        slides[current].classList.add('active');
+        if (descPanels[current]) descPanels[current].classList.add('active');
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+        gtag('event', 'carousel_navigate', {
+          'slide_name': slideNames[current] || current,
+          'slide_index': current
+        });
+      }
+
+      prevBtn.addEventListener('click', function() { goTo(current - 1); });
+      nextBtn.addEventListener('click', function() { goTo(current + 1); });
+      dots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+          goTo(parseInt(dot.dataset.slide));
+        });
+      });
+    })();
+
+    // Responsive scale for mobile preview
+    (function() {
+      var desktop = document.querySelector('.carousel-layout .macos-desktop');
+      if (!desktop) return;
+      function setScale() {
+        if (window.innerWidth >= 768) {
+          desktop.style.transform = '';
+          desktop.style.marginBottom = '';
+          return;
+        }
+        var containerW = window.innerWidth - 48; // 24px padding each side
+        var desktopW = 1000;
+        var scale = containerW / desktopW;
+        var trackH = 570;
+        desktop.style.transform = 'scale(' + scale + ')';
+        desktop.style.marginBottom = ((scale - 1) * trackH) + 'px';
+      }
+      setScale();
+      window.addEventListener('resize', setScale);
+    })();
+
+    // Contacts: load from data/contacts.js and render
+    (function() {
+      var chevronSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
+      var refreshSvg = '<svg class="panel-refresh" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>';
+      var linkIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+      var externalSvg = '<svg class="file-link-external" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+      var pinSvg = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+
+      function panelHeader(title, meta, count) {
+        return '<div class="right-panel-header"><span>' + title + '</span>' +
+          '<span class="panel-meta">' + meta +
+          (count ? ' &nbsp; ' + count : '') +
+          ' &nbsp; ' + refreshSvg + '</span></div>';
+      }
+
+      function renderSidebarItem(c, i) {
+        return '<div class="contact-list-item' + (i === 0 ? ' selected' : '') + '" data-contact="' + i + '">' +
+          '<div class="avatar" style="background:' + c.color + ';">' + c.initials + '</div>' +
+          '<div class="contact-list-info">' +
+            '<div class="contact-list-name">' + c.name + '</div>' +
+            '<div class="contact-list-email">' + c.email + '</div>' +
+            '<div class="contact-list-meta">' + c.emailCount + ' emails &nbsp; ' + c.lastActivity + '</div>' +
+          '</div></div>';
+      }
+
+      function renderCalendarItems(events) {
+        return events.map(function(ev) {
+          var barColor = ev.barColor || 'green';
+          var locationHtml = ev.location
+            ? '<span class="cal-location">' + pinSvg + ' ' + ev.location + '</span>'
+            : '';
+          return '<div class="cal-item">' +
+            '<div class="cal-bar ' + barColor + '"></div>' +
+            '<div class="cal-info">' +
+              '<div class="cal-title">' + ev.title + '</div>' +
+              '<div class="cal-date">' + ev.date + locationHtml + '</div>' +
+            '</div></div>';
+        }).join('');
+      }
+
+      function renderNoteItems(notes) {
+        return notes.map(function(n) {
+          return '<div class="note-item"><div class="note-icon">📝</div><div class="note-info">' +
+            '<div class="note-title">' + n.title + '</div>' +
+            (n.desc ? '<div class="note-desc">' + n.desc + '</div>' : '') +
+            '<div class="note-date">' + n.date + '</div></div></div>';
+        }).join('');
+      }
+
+      function renderFileItems(files) {
+        return files.map(function(f) {
+          var iconHtml = f.icon === '🔗' ? linkIconSvg : '<span style="font-size:14px;">' + f.icon + '</span>';
+          return '<div class="file-link-item">' +
+            '<div class="file-link-icon">' + iconHtml + '</div>' +
+            '<div class="file-link-info">' +
+              '<div class="file-link-name">' + f.name + '</div>' +
+              '<div class="file-link-source">' + f.source + '</div>' +
+              '<div class="file-link-date">' + f.date + '</div>' +
+            '</div>' +
+            (f.icon === '🔗' ? externalSvg : '') +
+          '</div>';
+        }).join('');
+      }
+
+      function renderPanel(c, i) {
+        var emailsHtml = c.emails.map(function(e) {
+          return '<div class="email-row">' + chevronSvg +
+            '<div class="email-row-content"><div class="email-row-subject">' + e.subject + '</div>' +
+            '<div class="email-row-meta">' + e.meta + '</div></div></div>';
+        }).join('');
+
+        // Reminders
+        var remindersHtml = '<div class="right-panel">' + panelHeader('Reminders', 'Scanned now', c.reminders.length || '') +
+          (c.reminders.length > 0
+            ? c.reminders.map(function(r) {
+                return '<div class="note-item"><div class="note-icon">🔔</div><div class="note-info">' +
+                  '<div class="note-title">' + r.title + '</div>' +
+                  '<div class="note-date">' + r.date + '</div></div></div>';
+              }).join('')
+            : '<div class="right-panel-empty">No reminders found for this contact.</div>') +
+          '</div>';
+
+        // Calendar
+        var calendarHtml = '<div class="right-panel">' + panelHeader('Calendar Events', 'Scanned now', c.calendarEvents.length || '') +
+          (c.calendarEvents.length > 0
+            ? renderCalendarItems(c.calendarEvents)
+            : '<div class="right-panel-empty">No calendar events found for this contact.</div>') +
+          '</div>';
+
+        // Notes
+        var notesHtml = '<div class="right-panel">' + panelHeader('Notes', c.notesMeta, c.notes.length || '') +
+          (c.notes.length > 0
+            ? renderNoteItems(c.notes)
+            : '<div class="right-panel-empty">No relevant notes found.</div>') +
+          '</div>';
+
+        // Files & Links
+        var filesHtml = '<div class="right-panel">' + panelHeader('Files &amp; Links', '', c.files.length || '') +
+          (c.files.length > 0
+            ? renderFileItems(c.files)
+            : '<div class="right-panel-empty">No files or links found.</div>') +
+          '</div>';
+
+        return '<div class="contact-panel' + (i === 0 ? ' active' : '') + '" data-panel="' + i + '">' +
+          '<div class="app-main">' +
+            '<div class="contact-header"><div>' +
+              '<h3 class="contact-detail-name">' + c.name + '</h3>' +
+              '<div class="contact-detail-email">' + c.email + '</div>' +
+              '<div class="contact-detail-meta"><span>' + c.emailCount + ' emails</span><span>Added ' + c.addedDate + '</span></div>' +
+            '</div><button class="app-btn">Record Meeting</button></div>' +
+            '<div class="memory-section">' +
+              '<div class="memory-header"><span class="memory-title">Memory</span><span class="memory-updated">' + c.memoryUpdated + '</span></div>' +
+              '<div class="memory-label">Background</div>' +
+              '<div class="memory-body">' + c.background + '</div>' +
+              '<div class="memory-label" style="margin-top:12px;">Recent Context</div>' +
+              '<div class="memory-body">' + c.recentContext + '</div>' +
+            '</div>' +
+            '<div class="emails-section">' +
+              '<div class="emails-header"><span>Emails</span><button class="app-btn-sm">Scan Emails</button></div>' +
+              emailsHtml +
+            '</div>' +
+          '</div>' +
+          '<div class="app-right-sidebar">' +
+            remindersHtml + calendarHtml + notesHtml + filesHtml +
+          '</div>' +
+        '</div>';
+      }
+
+      var contacts = window.CONTACTS_DATA || [];
+      var listEl = document.getElementById('contact-list');
+      var panelsEl = document.getElementById('contact-panels');
+      if (!listEl || !panelsEl || !contacts.length) return;
+
+      listEl.innerHTML = contacts.map(renderSidebarItem).join('');
+      panelsEl.innerHTML = contacts.map(renderPanel).join('');
+
+      var items = listEl.querySelectorAll('.contact-list-item[data-contact]');
+      var panels = panelsEl.querySelectorAll('.contact-panel[data-panel]');
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var idx = item.dataset.contact;
+          items.forEach(function(i) { i.classList.remove('selected'); });
+          item.classList.add('selected');
+          panels.forEach(function(p) { p.classList.remove('active'); });
+          var target = panelsEl.querySelector('.contact-panel[data-panel="' + idx + '"]');
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
+
+    // Files: load from data/files.js and render
+    (function() {
+      var files = window.FILES_DATA || [];
+      var listEl = document.getElementById('file-list');
+      var panelsEl = document.getElementById('file-panels');
+      if (!listEl || !panelsEl || !files.length) return;
+
+      function renderFileSidebarItem(f, i) {
+        var tagsHtml = f.tags.length
+          ? '<div class="file-list-tags">' + f.tags.map(function(t) { return '<span class="ftag">' + t + '</span>'; }).join('') + '</div>'
+          : '';
+        var descHtml = f.desc
+          ? '<div class="file-list-desc">' + f.desc + '</div>'
+          : '';
+        var statusHtml = (!f.tags.length && !f.desc && f.status)
+          ? '<div class="file-list-status">' + f.status + '</div>'
+          : '';
+        return '<div class="contact-list-item' + (i === 0 ? ' selected' : '') + '" style="align-items:flex-start;" data-file="' + i + '">' +
+          '<div class="file-list-icon ' + f.type + '">' + f.type.toUpperCase() + '</div>' +
+          '<div class="contact-list-info">' +
+            '<div class="contact-list-name">' + f.name + '</div>' +
+            tagsHtml + descHtml + statusHtml +
+          '</div></div>';
+      }
+
+      function renderPreview(f) {
+        if (f.previewSrc) {
+          return '<div class="file-preview"><div class="file-preview-image">' +
+            '<img src="' + f.previewSrc + '" alt="' + f.name + '">' +
+          '</div></div>';
+        }
+        if (f.previewType === 'document') {
+          return '<div class="file-preview"><div class="file-preview-placeholder">' +
+            '<div class="preview-doc-lines">' +
+              '<div class="preview-line" style="width:80%"></div>' +
+              '<div class="preview-line" style="width:100%"></div>' +
+              '<div class="preview-line" style="width:90%"></div>' +
+              '<div class="preview-line" style="width:70%"></div>' +
+              '<div class="preview-line" style="width:95%"></div>' +
+              '<div class="preview-line" style="width:60%"></div>' +
+            '</div>' +
+          '</div></div>';
+        }
+        return '<div class="file-preview"><div class="file-preview-placeholder">' +
+          '<div class="preview-grid">' +
+            '<div class="preview-card"></div><div class="preview-card"></div>' +
+            '<div class="preview-card"></div><div class="preview-card"></div>' +
+          '</div></div></div>';
+      }
+
+      function renderFilePanel(f, i) {
+        var tagsExisting = f.tags.length
+          ? '<div class="file-tags-existing">' + f.tags.map(function(t) { return '<span class="file-tag-pill">' + t + ' <span class="tag-x">&times;</span></span>'; }).join('') + '</div>'
+          : '';
+
+        return '<div class="file-panel' + (i === 0 ? ' active' : '') + '" data-fpanel="' + i + '">' +
+          '<div class="app-main">' +
+            '<div class="file-detail-header">' +
+              '<div class="file-detail-icon ' + f.type + '">' + f.type.toUpperCase() + '</div>' +
+              '<div><div class="file-detail-name">' + f.name + '</div>' +
+              '<div class="file-detail-path">' + f.path + '</div></div>' +
+            '</div>' +
+            renderPreview(f) +
+            '<div class="file-section-row">' +
+              '<div class="file-section-header"><span>Tags</span>' +
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</div>' +
+              tagsExisting +
+              '<div class="file-tags-input"><input type="text" placeholder="Add tag..." disabled><button class="app-btn-sm" disabled>Add</button></div>' +
+            '</div>' +
+            '<div class="file-section-row">' +
+              '<div class="file-section-header"><span>Entities</span>' +
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</div>' +
+              '<div class="file-section-body">' + (f.entities || '') + '</div>' +
+            '</div>' +
+            '<div class="file-section-row">' +
+              '<div class="file-section-header"><span>Summary</span>' +
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</div>' +
+              '<div class="file-section-body">' + (f.summary || '') + '</div>' +
+            '</div>' +
+            '<div class="file-section-row">' +
+              '<div class="file-section-header"><span>Details</span>' +
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>' +
+              '</div>' +
+              '<div class="file-details-grid">' +
+                '<div class="file-detail-pair"><span class="detail-label">Type</span><span class="detail-value">' + f.fileType + '</span></div>' +
+                '<div class="file-detail-pair"><span class="detail-label">Extension</span><span class="detail-value">' + f.extension + '</span></div>' +
+                '<div class="file-detail-pair"><span class="detail-label">Size</span><span class="detail-value">' + f.size + '</span></div>' +
+                '<div class="file-detail-pair"><span class="detail-label">Modified</span><span class="detail-value">' + f.modified + '</span></div>' +
+                '<div class="file-detail-pair"><span class="detail-label">Status</span><span class="detail-value">' + f.status + '</span></div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      listEl.innerHTML = files.map(renderFileSidebarItem).join('');
+      panelsEl.innerHTML = files.map(renderFilePanel).join('');
+
+      var items = listEl.querySelectorAll('.contact-list-item[data-file]');
+      var panels = panelsEl.querySelectorAll('.file-panel[data-fpanel]');
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var idx = item.dataset.file;
+          items.forEach(function(i) { i.classList.remove('selected'); });
+          item.classList.add('selected');
+          panels.forEach(function(p) { p.classList.remove('active'); });
+          var target = panelsEl.querySelector('.file-panel[data-fpanel="' + idx + '"]');
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
+
+    // Chat: load from data/chats.js and render
+    (function() {
+      var chats = window.CHATS_DATA || [];
+      var listEl = document.getElementById('chat-list');
+      var panelsEl = document.getElementById('chat-panels');
+      if (!listEl || !panelsEl || !chats.length) return;
+
+      function renderChatSidebarItem(c, i) {
+        return '<div class="contact-list-item' + (i === 0 ? ' selected' : '') + '" data-chat="' + i + '">' +
+          '<div class="contact-list-info" style="width:100%;">' +
+            '<div class="contact-list-name">' + c.title + '</div>' +
+            '<div class="contact-list-meta">' + c.date + ' &nbsp;&nbsp; ' + c.messageCount + ' messages</div>' +
+          '</div></div>';
+      }
+
+      function renderChatPanel(c, i) {
+        var messagesHtml = c.messages.map(function(m) {
+          if (m.role === 'user') {
+            return '<div class="chat-msg chat-msg-user"><div class="chat-bubble chat-bubble-user">' + m.text + '</div></div>';
+          }
+          return '<div class="chat-msg chat-msg-ai"><div class="chat-bubble chat-bubble-ai">' + m.text.replace(/\n/g, '<br>') + '</div></div>';
+        }).join('');
+
+        return '<div class="chat-panel' + (i === 0 ? ' active' : '') + '" data-cpanel="' + i + '">' +
+          '<div class="chat-messages">' + messagesHtml + '</div>' +
+          '<div class="chat-input-bar">' +
+            '<input type="text" class="chat-input" placeholder="Message Omodo..." disabled>' +
+            '<button class="chat-send-btn" disabled>' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 4a1 1 0 0 0-1 1v4.59l-1.3-1.3a1 1 0 0 0-1.4 1.42l3 3a1 1 0 0 0 1.4 0l3-3a1 1 0 0 0-1.4-1.42L13 11.59V7a1 1 0 0 0-1-1z" transform="rotate(180 12 12)"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      }
+
+      listEl.innerHTML = chats.map(renderChatSidebarItem).join('');
+      panelsEl.innerHTML = chats.map(renderChatPanel).join('');
+
+      var items = listEl.querySelectorAll('.contact-list-item[data-chat]');
+      var panels = panelsEl.querySelectorAll('.chat-panel[data-cpanel]');
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var idx = item.dataset.chat;
+          items.forEach(function(i) { i.classList.remove('selected'); });
+          item.classList.add('selected');
+          panels.forEach(function(p) { p.classList.remove('active'); });
+          var target = panelsEl.querySelector('.chat-panel[data-cpanel="' + idx + '"]');
+          if (target) target.classList.add('active');
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
